@@ -1,0 +1,413 @@
+/* Import slick-carousel css */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* Pagination Styling */
+.pokemon-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 20px;
+}
+
+.pokemon-card {
+  background-color: whitesmoke;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+.pokemon-image {
+  width: 100px; 
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* Fire Effect */
+.pokemon-card.fire {
+  background-color: #F08030;
+  animation: fireEffect 2s infinite;
+}
+
+@keyframes fireEffect {
+  0% { background-color: #F08030; }
+  50% { background-color: #F85757; }
+  100% { background-color: #F08030; }
+}
+
+/* Water Effect */
+.pokemon-card.water {
+  background-color: #6890F0;
+  animation: waterEffect 2s infinite;
+}
+
+@keyframes waterEffect {
+  0% { background-color: #6890F0; }
+  50% { background-color: #94ace4; }
+  100% { background-color: #9cafdc; }
+}
+
+
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Grass Effect */
+.pokemon-card.grass {
+  background-color: #78C850;
+  animation: grassEffect 2s infinite ease-in-out;
+}
+
+@keyframes grassEffect {
+  0% { background-color: #78C850; }
+  50% { background-color: #9ACD32; }
+  100% { background-color: #78C850; }
+}
+
+
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-item .page-link {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.page-item .page-link:hover {
+  background-color: #f0f0f0;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
+
+/* Container for the entire slider */
+.slider {
+  position: relative;
+  max-width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+/* Style for each individual slide */
+.slide {
+  display: none;
+  width: 100%;
+  height: 450px; /* Adjust the height as per your design */
+}
+
+.slide.active {
+  display: block;
+}
+
+/* Style for the image inside the slider */
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire area */
+  border-radius: 10px;
+}
+
+/* Next & Prev Buttons */
+.prev-button, .next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.prev-button:hover, .next-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #2c2f33; /* Dark background for contrast */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Soft shadow for a floating effect */
+}
+
+.search-input,
+.type-filter,
+.sort-option {
+  width: 250px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px; /* Rounded edges for futuristic look */
+  background-color: #23272a;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus,
+.type-filter:focus,
+.sort-option:focus {
+  outline: none;
+  box-shadow: 0 0 10px 2px rgba(0, 255, 136, 0.5); /* Glowing effect when focused */
+}
+
+.search-input::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+.search-input:hover,
+.type-filter:hover,
+.sort-option:hover {
+  background-color: #1b1e21; /* Darken on hover */
+}
+
+.search-bar select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #fff 50%), 
+                    linear-gradient(135deg, #fff 50%, transparent 50%);
+  background-position: right 15px top 50%, right 10px top 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
+.search-bar input,
+.search-bar select {
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle inner shadow */
+}
+
+.search-bar select:hover {
+  cursor: pointer;
+}
+
+.pokemon-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+}
+
+.pokemon-detail-card {
+  position: relative;
+  width: 100%;
+  height: 900px;
+  perspective: 1000px; /* Perspective for 3D effect */
+  transition: transform 0.6s ease-in-out; /* Smooth flip transition */
+}
+
+.pokemon-detail-card-front,
+.pokemon-detail-card-back {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  backface-visibility: hidden; /* Hides backface during flip */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-detail-card-back {
+  transform: rotateY(180deg); /* Back of the card is rotated */
+}
+
+.pokemon-detail-card.flipped {
+  transform: rotateY(180deg); /* Flip the card on click */
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.pokemon-image-detail {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pokemon-image:hover {
+  transform: scale(1.05); /* Slight hover effect for image */
+}
+
+.stats-list,
+.abilities-list,
+.types-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.stats-list li,
+.abilities-list li,
+.types-list li {
+  background-color: #e3f2fd;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #555;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.stats-list li:hover,
+.abilities-list li:hover,
+.types-list li:hover {
+  background-color: #f0f4f7;
+}
+
+.evolve-button {
+  margin-top: 0px;
+  margin-left: 45px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 25px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.evolve-button:hover {
+  background-color: #218838;
+}
+
+.loading {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.pokemon-origins {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.pokemon-origins h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif; /* Modern font */
+  color: #333;
+}
+
+.origin-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.origin-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.origin-image:hover {
+  transform: scale(1.05);
+}
+
+.origin-content {
+  text-align: center;
+  padding: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.origin-content h3 {
+  font-size: 1.8rem;
+  color: #00796b;
+  margin-bottom: 10px;
+}
+
+.origin-content p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #00796b; /* Customize arrow color */
+}
+
+.slick-dots li button:before {
+  color: #00796b; /* Customize dot color */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #004d40; /* Active dot color */
+}
