@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { fetchPokemonList, fetchPokemonByType } from './services/api'; // Make sure to import the function
 import PokemonList from './components/PokemonList';
 import SearchBar from './components/SearchBar';
@@ -105,7 +105,7 @@ const App = () => {
   };
 
   return (
-    <Router basename="/PokeDexApp">
+    <Router>
       <div className="heading">
         <h1>PokeDex</h1>
       </div>
