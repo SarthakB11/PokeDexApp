@@ -105,7 +105,7 @@ const App = () => {
   };
 
   return (
-    <Router basename="/PokeDexApp">
+    <Router>
       <div className="heading">
         <h1>PokeDex</h1>
       </div>
