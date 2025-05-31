@@ -9,6 +9,7 @@ import Slider from './components/Slider'; // Import the slider component
 import PokemonOrigins from './components/PokemonOrigins'; // Import the origins component
 import PokemonFavorites from './components/PokemonFavorites';
 import PokemonComparison from './components/PokemonComparison'; // Import the PokemonComparison component
+import Navigation from './components/Navigation';
 
 import './App.css';
 
@@ -106,12 +107,11 @@ const App = () => {
 
   return (
     <Router>
-      <div className="heading">
-        <h1>PokeDex</h1>
-      </div>
-      
-
       <div className="app">
+        <div className="heading">
+          <h1>PokeDex</h1>
+        </div>
+        <Navigation /> {/* Add the Navigation component here */}
         <Routes>
           <Route 
             path="/" 
@@ -136,14 +136,20 @@ const App = () => {
                   paginate={paginate}
                   currentPage={currentPage}
                 />
-                {/* Pokémon Origins Section */}
                 <PokemonOrigins pokemonList={filteredPokemon} />
               </>
             } 
           />
-          <Route path="/favorites" element={<PokemonFavorites favoritePokemon={favoritePokemon} />} />
+          <Route 
+            path="/favorites" 
+            element={
+              <PokemonFavorites 
+                favoritePokemon={favoritePokemon}
+                toggleFavorite={toggleFavorite} // Pass this if needed
+              />
+            } 
+          />
           <Route path="/compare" element={<PokemonComparison />} />
-
           <Route path="/pokemon/:name" element={<PokemonDetail />} />
         </Routes>
       </div>
