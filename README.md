@@ -49,13 +49,13 @@ npm start
 - `/`: Home page with Pokemon list
 - `/favourites`: View saved favorite Pokemon
 - `/compare`: Pokemon comparison interface
-- `/pokemon/:id`: Detailed view for specific Pokemon
+- `/pokemon/:name`: Detailed view for specific Pokemon
 
 ### API Endpoints
 - `GET /api/pokemon`: Retrieve all Pokemon
-- `GET /api/pokemon/:id`: Get specific Pokemon details
+- `GET /api/pokemon/:name`: Get specific Pokemon details
 - `POST /api/favourites`: Add Pokemon to favorites
-- `DELETE /api/favourites/:id`: Remove Pokemon from favorites
+- `DELETE /api/favourites/:name`: Remove Pokemon from favorites
 
 ## 🤝 Contributing
 1. Fork the repository
