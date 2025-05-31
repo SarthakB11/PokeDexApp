@@ -22,9 +22,9 @@ const App = () => {
   const [typeFilter, setTypeFilter] = useState('');
   const [sortOption, setSortOption] = useState('');
   const sliderImages = [
-  '/PokeDexApp/images/pokeball.jpg',
-  '/PokeDexApp/images/pikachu.jpg',
-  '/PokeDexApp/images/charizard.jpg',
+    `${process.env.PUBLIC_URL}/images/pokeball.jpg`,
+    `${process.env.PUBLIC_URL}/images/pikachu.jpg`,
+    `${process.env.PUBLIC_URL}/images/charizard.jpg`,
   ];
 
   useEffect(() => {
