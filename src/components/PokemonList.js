@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const typeColors = {
   fire: '#F08030',
@@ -23,30 +24,112 @@ const typeColors = {
   alltype: '#F5F5F5'
 };
 
-const PokemonList = ({ pokemon, toggleFavorite, favoritePokemon }) => {
-  return (
-    <div className="pokemon-list">
-      {pokemon.map((poke, index) => {
-        // Check if types exist and have elements
-        const mainType = poke.types && poke.types.length > 0 ? poke.types[0].type.name : 'alltype';
+const PokemonList = ({ pokemonList, toggleFavorite, favoritePokemon, PokemonCardComponent }) => {
+  // Use the enhanced card component if provided, otherwise use the default card rendering
+  // Container animation
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
+  // Item animation
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20
+      }
+    }
+  };
+
+  return (
+    <motion.div 
+      className="pokemon-list"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {pokemonList && pokemonList.map((pokemon) => {
+        const mainType = pokemon.types && pokemon.types.length > 0 ? pokemon.types[0].type.name : 'normal';
+        const isFavorite = favoritePokemon.includes(pokemon.name);
+        
+        // If an enhanced card component is provided, use it
+        if (PokemonCardComponent) {
+          return (
+            <motion.div 
+              key={pokemon.name} 
+              variants={itemVariants}
+              onClick={() => window.location.hash = `#/pokemon/${pokemon.name}`}
+            >
+              <PokemonCardComponent 
+                pokemon={pokemon} 
+                toggleFavorite={toggleFavorite} 
+                isFavorite={isFavorite} 
+              />
+            </motion.div>
+          );
+        }
+        
+        // Otherwise use the default card rendering
         return (
-          <div 
-            key={index} 
-            className={`pokemon-card ${mainType}`} // Use mainType for the class
-            style={{ backgroundColor: typeColors[mainType] || typeColors.alltype }} // Default to 'alltype' type color if undefined
+          <motion.div 
+            key={pokemon.name} 
+            className="pokemon-card"
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            style={{ backgroundColor: typeColors[mainType] || typeColors.normal }}
           >
-            <Link to={`/pokemon/${poke.name}`}>
-              <img src={poke.image} alt={poke.name} className="pokemon-image" />
-              <h3>{poke.name}</h3>
-              <button onClick={() => toggleFavorite(poke.name)}>
-                {favoritePokemon.includes(poke.name) ? '❤️' : '🤍'} {/* Heart toggle */}
-              </button>
-            </Link>
-          </div>
+            <motion.button 
+              className="favorite-button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleFavorite(pokemon.name);
+              }}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {isFavorite ? '❤️' : '🤍'}
+            </motion.button>
+            
+            <div 
+              className="pokemon-card-content"
+              onClick={() => window.location.hash = `#/pokemon/${pokemon.name}`}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="pokemon-image-container">
+                <img src={pokemon.image} alt={pokemon.name} className="pokemon-image" />
+              </div>
+              <div className="pokemon-info">
+                <h3 className="pokemon-name">{pokemon.name}</h3>
+                <div className="pokemon-types">
+                  {pokemon.types && pokemon.types.map((typeInfo, index) => (
+                    <span 
+                      key={index} 
+                      className="type-badge"
+                      style={{ 
+                        backgroundColor: `${typeColors[typeInfo.type.name]}80` || typeColors.normal 
+                      }}
+                    >
+                      {typeInfo.type.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 

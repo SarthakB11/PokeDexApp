@@ -4,13 +4,17 @@ const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
 // Fetch the list of Pokémon with detailed information (including their sprites and origin story)
 export const fetchPokemonList = async () => {
-  const response = await fetch(`${API_BASE_URL}pokemon?limit=250`); // Fetch first 500 Pokémon
+  const response = await fetch(`${API_BASE_URL}pokemon?limit=250`); // Fetch first 250 Pokémon
   const data = await response.json();
 
   // Fetch detailed information for each Pokémon (including their sprites and species data)
-  const detailedPokemonPromises = data.results.map(async (pokemon) => {
+  const detailedPokemonPromises = data.results.map(async (pokemon, index) => {
     const pokemonDetailResponse = await fetch(pokemon.url); // Fetch individual Pokémon details
     const pokemonDetailData = await pokemonDetailResponse.json();
+
+    // Extract the Pokemon ID from the URL
+    const urlParts = pokemon.url.split('/');
+    const pokemonId = urlParts[urlParts.length - 2];
 
     // Fetch species information for origin stories
     const speciesResponse = await fetch(pokemonDetailData.species.url);
@@ -22,10 +26,15 @@ export const fetchPokemonList = async () => {
     );
 
     return {
+      id: pokemonId, // Include the Pokemon ID
       name: pokemon.name,
-      image: pokemonDetailData.sprites.front_default, // Fetch the default front sprite
-      origin: flavorTextEntry ? flavorTextEntry.flavor_text : 'No origin available', // Fetch the origin story
-      speciesUrl: pokemonDetailData.species.url // Save species URL for further use if needed
+      image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`,
+      sprites: pokemonDetailData.sprites, // Include all sprites
+      types: pokemonDetailData.types, // Include types
+      stats: pokemonDetailData.stats, // Include stats
+      origin: flavorTextEntry ? flavorTextEntry.flavor_text : 'No origin available',
+      speciesUrl: pokemonDetailData.species.url,
+      url: pokemon.url // Keep the original URL
     };
   });
 
